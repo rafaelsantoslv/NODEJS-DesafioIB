@@ -1,5 +1,11 @@
-import { Table, Column, Model, BelongsTo } from 'sequelize-typescript';
-import { Geral } from '../geral/geral.entity';
+import {
+  Table,
+  Column,
+  Model,
+  BelongsTo,
+  ForeignKey,
+} from 'sequelize-typescript';
+
 @Table
 export class Chamadas extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
@@ -55,7 +61,4 @@ export class Chamadas extends Model {
 
   @Column
   hora: string;
-
-  @BelongsTo(() => Geral)
-  geral: Geral;
 }
