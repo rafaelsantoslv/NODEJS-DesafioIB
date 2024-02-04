@@ -18,8 +18,8 @@ export class FetchingService {
         .toPromise();
 
       const responseDataString = response.data;
-      await this.chamadasService.saveChamadasData(responseDataString);
-      // return responseDataString
+      // await this.chamadasService.saveChamadasData(responseDataString);
+      return responseDataString;
     } catch (error) {
       throw new BadRequestException('Fetch Failed: ' + error);
     }

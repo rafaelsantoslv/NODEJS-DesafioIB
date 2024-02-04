@@ -6,7 +6,7 @@ import {
   ForeignKey,
 } from 'sequelize-typescript';
 
-@Table
+@Table({ tableName: 'chamadas' })
 export class Chamadas extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
   id: number;

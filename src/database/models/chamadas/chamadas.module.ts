@@ -18,7 +18,7 @@ dotenv.config();
       username: process.env.DB_USERNAME || 'root',
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      //   models: [Chamadas], // Adicione os modelos diretamente
+      models: [Chamadas], // Adicione os modelos diretamente
     }),
     SequelizeModule.forFeature([Chamadas]),
   ],
