@@ -1,7 +1,12 @@
 const path = require('path');
+const tsNode = require('ts-node');
+
+tsNode.register({
+  project: path.resolve(__dirname, 'tsconfig.json'),
+});
 
 module.exports = {
-  config: path.resolve('src', 'database', 'sequelize.config.js'),
+  config: path.resolve('db', 'config.js'),
   'models-path': path.resolve('src', 'database', 'models'),
-  'migrations-path': path.resolve('src', 'database', 'migrations'),
+  'migrations-path': path.resolve('db', 'migrations'),
 };

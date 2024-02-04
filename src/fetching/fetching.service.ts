@@ -1,13 +1,13 @@
 import { HttpService } from '@nestjs/axios';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
-import { ChamadasService } from 'src/database/models/chamadas/chamadas.service';
+// import { ChamadasService } from 'src/chamadas/chamadas.service';
 
 @Injectable()
 export class FetchingService {
   constructor(
     private readonly httpService: HttpService,
-    private readonly chamadasService: ChamadasService,
+    // private readonly chamadasService: ChamadasService,
   ) {}
 
   async fetchJsonData(): Promise<any> {
