@@ -8,5 +8,6 @@ import { ChamadasController } from './chamadas.controller';
   imports: [SequelizeModule.forFeature([Chamadas])],
   providers: [ChamadasService],
   controllers: [ChamadasController],
+  exports: [ChamadasService],
 })
 export class ChamadasModule {}

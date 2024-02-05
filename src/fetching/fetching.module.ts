@@ -6,7 +6,7 @@ import { ChamadasModule } from 'src/chamadas/chamadas.module';
 import { DatabaseModule } from 'src/database/database.module';
 
 @Module({
-  imports: [HttpModule, ChamadasModule, DatabaseModule],
+  imports: [HttpModule, ChamadasModule],
   controllers: [FetchingController],
   providers: [FetchingService],
 })

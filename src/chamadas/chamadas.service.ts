@@ -13,4 +13,12 @@ export class ChamadasService {
   async findAll(): Promise<Chamadas[]> {
     return Chamadas.findAll();
   }
+
+  async saveOcorrencia(data: any): Promise<Chamadas[]> {
+    // const addOcorrencia = await Chamadas.create({
+    //   cliente: 'teste',
+    //   data: data.data,
+    // });
+    return data;
+  }
 }
