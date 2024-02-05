@@ -1,6 +1,5 @@
 // chamadas/chamadas.service.ts
-import { Injectable, BadRequestException, Response } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { Chamadas } from '../database/models/chamadas.model';
 import { Sequelize } from 'sequelize-typescript';
 
