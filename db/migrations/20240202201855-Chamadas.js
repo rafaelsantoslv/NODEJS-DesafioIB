@@ -31,6 +31,34 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      chamadas_atendimento_pa: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      chamadas_abandono_fila: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      chamadas_falha_operadora: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      chamadas_atendimento_humano: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      chamadas_atendimento_maquina: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      chamadas_abandono_pre_fila: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      chamadas_nao_atendida: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       ocorrencias_total: {
         type: Sequelize.INTEGER,
         allowNull: false,

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { Chamadas } from './chamadas.model';
+import { Chamadas } from '../database/models/chamadas.model';
 import { ChamadasService } from './chamadas.service';
 import { ChamadasController } from './chamadas.controller';
 
