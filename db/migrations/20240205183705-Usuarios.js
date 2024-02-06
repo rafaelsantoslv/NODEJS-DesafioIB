@@ -15,6 +15,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      username: {
+        allowNull: false,
+        type: Sequelize.STRING,
+      },
       senha: {
         allowNull: false,
         type: Sequelize.STRING,
@@ -22,6 +26,14 @@ module.exports = {
       email: {
         allowNull: false,
         type: Sequelize.STRING, // Alterado para STRING
+      },
+      createdAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      updatedAt: {
+        type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },

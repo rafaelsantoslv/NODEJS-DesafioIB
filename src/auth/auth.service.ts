@@ -1,20 +1,18 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
-import { JwtService } from '@nestjs/jwt';
-import * as bcrypt from 'bcrypt';
+import { JwtAuthService } from './jwt/jwt.service';
+
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
-    private jwtService: JwtService,
-  ) {
-    // this.sequelize.addModels([Usuarios]);
-  }
+    private readonly jwtAuthService: JwtAuthService,
+  ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.userService.findByUser(username);
 
-    if (user && (await bcrypt.compare(password, user.password))) {
+    if (user) {
       const { password, ...result } = user;
       return result;
     }
@@ -27,9 +25,11 @@ export class AuthService {
     if (!user) {
       throw new UnauthorizedException('Credenciais inválidas');
     }
-    const payload = { username: user.email, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+    const payload = await this.jwtAuthService.signPayload({
+      sub: user.dataValues.id,
+      username: user.dataValues.username,
+    });
+
+    return { acess_token: payload, data: user.dataValues };
   }
 }

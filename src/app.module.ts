@@ -4,21 +4,11 @@ import { AppService } from './app.service';
 import { FetchingModule } from './fetching/fetching.module';
 import { ChamadasModule } from './chamadas/chamadas.module';
 import { DatabaseModule } from './database/database.module';
-import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
-import { UserService } from './user/user.service';
-import { UserController } from './user/user.controller';
-import { UserModule } from './user/user.module';
 
 @Module({
-  imports: [
-    FetchingModule,
-    ChamadasModule,
-    DatabaseModule,
-    AuthModule,
-    UserModule,
-  ],
-  controllers: [AppController, AuthController, UserController],
-  providers: [AppService, UserService],
+  imports: [FetchingModule, ChamadasModule, DatabaseModule, AuthModule],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

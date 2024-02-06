@@ -12,6 +12,9 @@ export class Usuarios extends Model {
   nome: string;
 
   @Column
+  username: string;
+
+  @Column
   email: string;
 
   @Column
