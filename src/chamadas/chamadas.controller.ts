@@ -9,4 +9,9 @@ export class ChamadasController {
   async testConnectionDatabase(): Promise<any> {
     return this.chamadasService.findAll();
   }
+
+  @Get('dados')
+  async fetchData(): Promise<any> {
+    return this.chamadasService.fetchJsonData();
+  }
 }

@@ -1,10 +1,4 @@
-import {
-  IsNotEmpty,
-  IsString,
-  Length,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsString, Length } from 'class-validator';
 
 export class AuthDto {
   @IsNotEmpty()
