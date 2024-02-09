@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
+import { UserService } from 'src/User/user.service';
 import { JwtAuthService } from './jwt/jwt.service';
+import { AuthenticatedUser } from './entities/authenticated-user.entity';
 
 @Injectable()
 export class AuthService {
@@ -9,27 +10,23 @@ export class AuthService {
     private readonly jwtAuthService: JwtAuthService,
   ) {}
 
-  async validateUser(username: string, password: string): Promise<any> {
+  async login(
+    username: string,
+    password: string,
+  ): Promise<AuthenticatedUser | null> {
     const user = await this.userService.findByUser(username);
 
-    if (user) {
-      const { password, ...result } = user;
-      return result;
+    if (user && user.senha === password) {
+      const payload = await this.jwtAuthService.signPayload({
+        sub: user.id,
+        username: user.username,
+      });
+      return {
+        id: user.id,
+        email: user.email,
+        nome: user.nome,
+        token: payload,
+      };
     }
-    return null;
-  }
-
-  async login(username: string, password: string) {
-    const user = await this.validateUser(username, password);
-
-    if (!user) {
-      throw new UnauthorizedException('Credenciais inválidas');
-    }
-    const payload = await this.jwtAuthService.signPayload({
-      sub: user.dataValues.id,
-      username: user.dataValues.username,
-    });
-
-    return { acess_token: payload, data: user.dataValues };
   }
 }

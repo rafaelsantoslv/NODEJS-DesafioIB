@@ -1,5 +1,4 @@
 import { Controller, Get } from '@nestjs/common';
-import { Sequelize } from 'sequelize-typescript';
 import { ChamadasService } from './chamadas.service';
 
 @Controller('chamadas')
