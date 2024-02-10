@@ -4,6 +4,7 @@ import { Chamadas } from '../database/models/chamadas.model';
 import { Sequelize } from 'sequelize-typescript';
 import { HttpService } from '@nestjs/axios';
 import { AxiosResponse } from 'axios';
+import { exists } from 'fs';
 
 @Injectable()
 export class ChamadasService {
@@ -18,16 +19,7 @@ export class ChamadasService {
     return Chamadas.findAll();
   }
 
-  async saveOcorrencia(data: any): Promise<Chamadas[]> {
-    try {
-      const addOcorrencia = await Chamadas.bulkCreate(data);
-      return addOcorrencia;
-    } catch (error) {
-      throw new BadRequestException('Fetch Failed: ' + error);
-    }
-  }
-
-  async fetchJsonData(): Promise<any> {
+  async ChamadasInsert(): Promise<any> {
     const dataUrl = 'https://www.ibridge.com.br/dados.json';
     const clientesArray = [];
     try {
@@ -50,8 +42,18 @@ export class ChamadasService {
 
       formatResponse(responseDataString);
 
-      const addChamadas = await this.saveOcorrencia(clientesArray);
-      return addChamadas;
+      for (const clienteData of clientesArray) {
+        const exists = await Chamadas.findOne({
+          where: {
+            data: clienteData.data,
+            cliente: clienteData.cliente,
+          },
+        });
+        if (!exists) {
+          const addChamadas = await Chamadas.create(clienteData);
+        }
+      }
+      return { clientes: 'sucess' };
     } catch (error) {
       throw new BadRequestException('Fetch Failed: ' + error);
     }

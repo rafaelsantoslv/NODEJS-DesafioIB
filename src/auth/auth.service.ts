@@ -4,7 +4,7 @@ import { JwtAuthService } from './jwt/jwt.service';
 import { AuthenticatedUser } from './entities/authenticated-user.entity';
 import { Usuarios } from '../database/models/usuarios.model';
 import { Sequelize } from 'sequelize-typescript';
-import { DataUserCreate } from 'src/User/entities/user.entity';
+import { DataUserCreate } from './entities/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -42,7 +42,6 @@ export class AuthService {
       const createUser = await Usuarios.create({ dataUserCreate });
       return createUser;
     } catch (error) {
-      console.error('Erro ao criar usuário:', error.message);
       throw new Error('Erro ao criar usuário');
     }
   }

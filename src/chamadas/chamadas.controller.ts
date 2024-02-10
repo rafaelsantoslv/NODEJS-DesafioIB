@@ -12,6 +12,6 @@ export class ChamadasController {
 
   @Get('dados')
   async fetchData(): Promise<any> {
-    return this.chamadasService.fetchJsonData();
+    return this.chamadasService.ChamadasInsert();
   }
 }
