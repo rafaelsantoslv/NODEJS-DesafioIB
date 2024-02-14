@@ -1,6 +1,20 @@
-import { Table, Column, Model } from 'sequelize-typescript';
+import { Table, Column, Model, Index } from 'sequelize-typescript';
 
-@Table({ tableName: 'chamadas' })
+@Table({
+  tableName: 'chamadas',
+  indexes: [
+    {
+      name: 'idx_cliente',
+      using: 'BTREE',
+      fields: ['cliente'],
+    },
+    {
+      name: 'idx_data',
+      using: 'BTREE',
+      fields: ['data'],
+    },
+  ],
+})
 export class Chamadas extends Model {
   @Column({ primaryKey: true, autoIncrement: true })
   id: number;

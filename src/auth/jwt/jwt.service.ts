@@ -10,7 +10,7 @@ export class JwtAuthService {
     return this.jwtService.sign(payload);
   }
 
-  async validateToken(token: string): Promise<DecodedToken | null> {
+  async validateToken(token: string) {
     try {
       const decoded = this.jwtService.verify(token) as DecodedToken;
       return decoded;

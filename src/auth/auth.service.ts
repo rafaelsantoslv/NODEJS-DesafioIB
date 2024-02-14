@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 // import { UserService } from 'src/User/user.service';
-import { JwtAuthService } from './jwt/jwt.service';
-import { AuthenticatedUser } from './entities/authenticated-user.entity';
-import { Usuarios } from '../database/models/usuarios.model';
+import * as bcrypt from 'bcrypt';
 import { Sequelize } from 'sequelize-typescript';
-import { DataUserCreate } from './entities/user.entity';
+import { Usuarios } from '../database/models/usuarios.model';
+import { CreateUserDto } from './dto/create-user.dto';
+import { JwtAuthService } from './jwt/jwt.service';
+import { AuthDto } from './dto/auth-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -16,33 +17,51 @@ export class AuthService {
     this.sequelize.addModels([Usuarios]);
   }
 
-  async login(
-    username: string,
-    password: string,
-  ): Promise<AuthenticatedUser | null> {
-    const user = await Usuarios.findOne({
-      where: { username },
-    });
+  async login(authDto: AuthDto) {
+    const user = await Usuarios.findOne({ where: { email: authDto.email } });
 
-    if (user && user.senha === password) {
-      const payload = await this.jwtAuthService.signPayload({
-        sub: user.id,
-        username: user.username,
-      });
-      return {
-        id: user.id,
-        email: user.email,
-        nome: user.nome,
-        token: payload,
-      };
+    if (!user) {
+      throw new BadRequestException('Email ou senha inválido');
     }
+
+    const isPasswordValid = await bcrypt.compare(
+      authDto.password,
+      user.password,
+    );
+
+    if (!isPasswordValid) {
+      throw new BadRequestException('Email ou senha inválido');
+    }
+
+    const token = await this.jwtAuthService.signPayload({
+      sub: user.dataValues.id,
+      email: user.dataValues.email,
+    });
+    return {
+      ...user.dataValues,
+      password: undefined,
+      token,
+    };
   }
-  async createUser(dataUserCreate: DataUserCreate): Promise<Usuarios | null> {
+
+  async createUser(createUserDto: CreateUserDto) {
     try {
-      const createUser = await Usuarios.create({ dataUserCreate });
-      return createUser;
+      const existingUser = await Usuarios.findOne({
+        where: { email: createUserDto.email },
+      });
+      if (existingUser) {
+        throw new BadRequestException(
+          'O email utilizado já está sendo utilizado por outro usuário',
+        );
+      }
+      const user = {
+        ...createUserDto,
+        password: await bcrypt.hash(createUserDto.password, 10),
+      };
+      const createdUser = await Usuarios.create(user);
+      return user;
     } catch (error) {
-      throw new Error('Erro ao criar usuário');
+      throw error;
     }
   }
 }

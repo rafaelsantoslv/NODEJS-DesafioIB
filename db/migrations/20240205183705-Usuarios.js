@@ -15,17 +15,14 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      username: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      senha: {
+      password: {
         allowNull: false,
         type: Sequelize.STRING,
       },
       email: {
         allowNull: false,
-        type: Sequelize.STRING, // Alterado para STRING
+        type: Sequelize.STRING,
+        unique: true,
       },
       createdAt: {
         type: Sequelize.DATE,
