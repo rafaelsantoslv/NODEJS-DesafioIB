@@ -10,7 +10,6 @@ import { AuthDto } from './dto/auth-user.dto';
 @Injectable()
 export class AuthService {
   constructor(
-    // private readonly userService: UserService,
     private readonly jwtAuthService: JwtAuthService,
     private sequelize: Sequelize,
   ) {
@@ -21,7 +20,7 @@ export class AuthService {
     const user = await Usuarios.findOne({ where: { email: authDto.email } });
 
     if (!user) {
-      throw new BadRequestException('Email ou senha inválido');
+      throw new BadRequestException('Email ou senha inválidos');
     }
 
     const isPasswordValid = await bcrypt.compare(
