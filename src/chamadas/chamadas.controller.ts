@@ -6,12 +6,12 @@ export class ChamadasController {
   constructor(private readonly chamadasService: ChamadasService) {}
 
   @Get()
-  async testConnectionDatabase(): Promise<any> {
+  relatorio() {
     return this.chamadasService.findAll();
   }
 
   @Get('dados')
-  async fetchData(): Promise<any> {
+  fetchData() {
     return this.chamadasService.ChamadasInsert();
   }
 }

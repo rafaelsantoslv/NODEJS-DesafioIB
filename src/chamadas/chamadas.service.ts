@@ -15,11 +15,11 @@ export class ChamadasService {
     this.sequelize.addModels([Chamadas]);
   }
 
-  async findAll(): Promise<Chamadas[]> {
+  async findAll() {
     return Chamadas.findAll();
   }
 
-  async ChamadasInsert(): Promise<any> {
+  async ChamadasInsert() {
     const dataUrl = 'https://www.ibridge.com.br/dados.json';
     const clientesArray = [];
     try {
