@@ -43,8 +43,9 @@ export class AuthService {
     };
   }
 
-  async createUser(createUserDto: CreateUserDto) {
+  async createUser(createUserDto: CreateUserDto, token: string) {
     try {
+      const decodedToken = await this.jwtAuthService.validateToken(token);
       const existingUser = await Usuarios.findOne({
         where: { email: createUserDto.email },
       });

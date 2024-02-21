@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { DecodedToken } from '../entities/jwt.entity';
 
@@ -15,7 +15,7 @@ export class JwtAuthService {
       const decoded = this.jwtService.verify(token) as DecodedToken;
       return decoded;
     } catch (error) {
-      return null;
+      throw new UnauthorizedException('Token inválido');
     }
   }
 }
